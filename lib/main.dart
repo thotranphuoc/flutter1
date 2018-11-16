@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
+            RaisedButton(
+              onPressed: () {},
+              child: Text('Add New'),
+            ),
             Card(
               child: Column(
                 children: <Widget>[
