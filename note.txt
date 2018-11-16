@@ -1,0 +1,12 @@
+// main function generally does not receive any
+main(){
+
+}
+
+all are about widgets
+page is itself even a widget (scaffold)
+
+entire app is wrapped in one root widget
+a widget is not only just for visual, but is also about logic. Such as button display and define some actions
+
+an class name start with Capital letter
