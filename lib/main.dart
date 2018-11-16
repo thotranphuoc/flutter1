@@ -16,13 +16,25 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('EasyLists'),
         ),
-        body: Card(
-          child: Column(
-            children: <Widget>[
-              Image.asset('assets/dalat.jpg'),
-              Text('Dalat my love')
-            ],
-          ),
+        body: Column(
+          children: <Widget>[
+            Card(
+              child: Column(
+                children: <Widget>[
+                  Image.asset('assets/dalat.jpg'),
+                  Text('Dalat my love')
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                children: <Widget>[
+                  Image.asset('assets/dalat.jpg'),
+                  Text('Dalat my love')
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
