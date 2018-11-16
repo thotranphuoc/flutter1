@@ -32,28 +32,46 @@ class _MyAppState extends State<MyApp> {
               margin: EdgeInsets.all(10.0),
               child: RaisedButton(
                 onPressed: () {
-                  _products.add('New Food Tester');
-                  print(_products);
+                  setState(() {
+                    _products.add('New Food Tester');
+                    // print(_products);
+                  });
                 },
                 child: Text('Add New'),
               ),
             ),
-            Card(
-              child: Column(
-                children: <Widget>[
-                  Image.asset('assets/dalat.jpg'),
-                  Text('Dalat my love')
-                ],
-              ),
+            Column(
+              children: _products
+                  .map((element) => Card(
+                        child: Column(
+                          children: <Widget>[
+                            Image.asset('assets/dalat.jpg'),
+                            Text(element)
+                          ],
+                        ),
+                      ))
+                  .toList(),
             ),
-            Card(
-              child: Column(
-                children: <Widget>[
-                  Image.asset('assets/dalat.jpg'),
-                  Text('Dalat my love')
-                ],
-              ),
-            )
+            // Column(
+            //   children: <Widget>[
+            //     Card(
+            //       child: Column(
+            //         children: <Widget>[
+            //           Image.asset('assets/dalat.jpg'),
+            //           Text('Dalat my love')
+            //         ],
+            //       ),
+            //     ),
+            //     Card(
+            //       child: Column(
+            //         children: <Widget>[
+            //           Image.asset('assets/dalat.jpg'),
+            //           Text('Dalat my love')
+            //         ],
+            //       ),
+            //     )
+            //   ],
+            // )
           ],
         ),
       ),
