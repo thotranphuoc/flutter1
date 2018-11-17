@@ -1,79 +1,21 @@
 import 'package:flutter/material.dart';
 
+import './product_manager.dart';
+
 // main function generally does not receive any
 // main doest return anything
 void main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _MyAppState();
-  }
-}
-
-class _MyAppState extends State<MyApp> {
-  // it tells that build function override all from StatelessWidget
-  // build() return a widget
-  // input of build() should be a BuildContext
-
-  List<String> _products = ['Food Tester'];
-  @override
-  Widget build(BuildContext contect) {
+  Widget build(BuildContext context) {
+    // TODO: implement build
     return MaterialApp(
-      // Scaffold create a page
       home: Scaffold(
         appBar: AppBar(
           title: Text('EasyLists'),
         ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    _products.add('New Food Tester');
-                    // print(_products);
-                  });
-                },
-                child: Text('Add New'),
-              ),
-            ),
-            Column(
-              children: _products
-                  .map((element) => Card(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset('assets/dalat.jpg'),
-                            Text(element)
-                          ],
-                        ),
-                      ))
-                  .toList(),
-            ),
-            // Column(
-            //   children: <Widget>[
-            //     Card(
-            //       child: Column(
-            //         children: <Widget>[
-            //           Image.asset('assets/dalat.jpg'),
-            //           Text('Dalat my love')
-            //         ],
-            //       ),
-            //     ),
-            //     Card(
-            //       child: Column(
-            //         children: <Widget>[
-            //           Image.asset('assets/dalat.jpg'),
-            //           Text('Dalat my love')
-            //         ],
-            //       ),
-            //     )
-            //   ],
-            // )
-          ],
-        ),
+        body: ProductManager(),
       ),
     );
   }
