@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('EasyLists'),
         ),
-        body: ProductManager(),
+        body: ProductManager('Food tester from main.dart'),
       ),
     );
   }
