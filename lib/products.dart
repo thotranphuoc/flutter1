@@ -4,7 +4,7 @@ class Products extends StatelessWidget {
   final List<String> products;
 
   // get the input and assign to products
-  Products(this.products){
+  Products(this.products) {
     print('product.dart constructor()');
   }
 
