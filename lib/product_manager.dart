@@ -21,9 +21,10 @@ class _ProductManagerState extends State<ProductManager> {
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
     print('[ProductManagerState] initState()');
     _products.add(widget.startingProduct);
-    super.initState();
+    
   }
 
   @override
