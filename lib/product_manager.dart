@@ -34,7 +34,10 @@ class _ProductManagerState extends State<ProductManager> {
           child: ProductControl(
               _addProduct), // just add referenct of _addProduct function. Not (), so that not execute immediately
         ),
-        Products(_products)
+        Container(
+          height: 400.0,
+          child: Products(_products),
+        )
       ],
     );
   }

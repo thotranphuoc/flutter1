@@ -12,7 +12,7 @@ class Products extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     print('product.dart build()');
-    return Column(
+    return ListView(
       children: products
           .map((element) => Card(
                 child: Column(
