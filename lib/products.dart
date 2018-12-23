@@ -11,14 +11,7 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('product.dart build()');
-    return products.length > 0
-        ? ListView.builder(
-            itemBuilder: _buildProductItem,
-            itemCount: products.length,
-          )
-        : Center(
-            child: Text('No products found, please add some'),
-          );
+    return _buildProductList();
   }
 
   Widget _buildProductItem(BuildContext context, int index) {
@@ -30,5 +23,21 @@ class Products extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildProductList() {
+    Widget productListWidget;
+    if (products.isNotEmpty) {
+      productListWidget = ListView.builder(
+        itemBuilder: _buildProductItem,
+        itemCount: products.length,
+      );
+    } else {
+      productListWidget = Center(
+        child: Text('No products found, please add some'),
+      );
+    }
+
+    return productListWidget;
   }
 }
