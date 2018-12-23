@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('EasyLists'),
         ),
-        body: ProductManager('Food tester from main.dart'),
+        body: ProductManager(
+          startingProduct: 'start from main.dart',
+          text: 'h',
+        ),
       ),
     );
   }
