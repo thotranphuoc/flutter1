@@ -10,19 +10,21 @@ class Products extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     print('product.dart build()');
-    return ListView(
-      children: products
-          .map((element) => Card(
-                child: Column(
-                  children: <Widget>[
-                    Image.asset('assets/dalat.jpg'),
-                    Text(element)
-                  ],
-                ),
-              ))
-          .toList(),
+    return ListView.builder(
+      itemBuilder: _buildProductItem,
+      itemCount: products.length,
+    );
+  }
+
+  Widget _buildProductItem(BuildContext context, int index) {
+    return Card(
+      child: Column(
+        children: <Widget>[
+          Image.asset('assets/dalat.jpg'),
+          Text(products[index])
+        ],
+      ),
     );
   }
 }

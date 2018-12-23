@@ -4,7 +4,9 @@ import './product_control.dart';
 
 class ProductManager extends StatefulWidget {
   final String startingProduct;
-  ProductManager(this.startingProduct);
+  ProductManager(
+      {this.startingProduct =
+          'Defalut value'}); // this default value will be overwritten if main.dart pass some data
   @override
   State<StatefulWidget> createState() {
     return _ProductManagerState();
