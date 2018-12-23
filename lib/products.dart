@@ -11,10 +11,14 @@ class Products extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('product.dart build()');
-    return ListView.builder(
-      itemBuilder: _buildProductItem,
-      itemCount: products.length,
-    );
+    return products.length > 0
+        ? ListView.builder(
+            itemBuilder: _buildProductItem,
+            itemCount: products.length,
+          )
+        : Center(
+            child: Text('No products found, please add some'),
+          );
   }
 
   Widget _buildProductItem(BuildContext context, int index) {

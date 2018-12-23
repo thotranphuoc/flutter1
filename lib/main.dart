@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
           title: Text('EasyLists'),
         ),
         body: ProductManager(
-          startingProduct: 'start from main.dart',
           text: 'h',
         ),
       ),
