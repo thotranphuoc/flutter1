@@ -33,9 +33,11 @@ class Products extends StatelessWidget {
         itemCount: products.length,
       );
     } else {
-      productListWidget = Center(
-        child: Text('No products found, please add some'),
-      );
+      // productListWidget = Center(
+      //   child: Text('No products found, please add some'),
+      // );
+
+      productListWidget = Container(); // could be an empty container. Empty container doesn't consump any pixel
     }
 
     return productListWidget;
