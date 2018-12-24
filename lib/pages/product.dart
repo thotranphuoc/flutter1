@@ -20,7 +20,7 @@ class ProductPage extends StatelessWidget {
             Text(title),
             RaisedButton(
               child: Text('Back'),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context,  true),
             )
           ],
         ));
