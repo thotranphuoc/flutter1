@@ -3,9 +3,9 @@ import './pages/product.dart';
 
 class Products extends StatelessWidget {
   final List<Map<String, String>> products;
-
-  // get the input and assign to products
-  Products(this.products) {
+  final Function deleteProduct;
+  // products: required, deleteProduct: optional
+  Products(this.products, {this.deleteProduct}) {
     print('product.dart constructor()');
   }
 
@@ -31,8 +31,11 @@ class Products extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (BuildContext context) => ProductPage(
                                 products[index]['title'],
-                                products[index]['imageUrl'])))
-                    .then((onValue) => print(onValue)),
+                                products[index]['imageUrl']))).then((onValue) {
+                      if (onValue) {
+                        deleteProduct(index);
+                      }
+                    }),
               )
             ],
           )

@@ -8,7 +8,6 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
@@ -19,8 +18,8 @@ class ProductPage extends StatelessWidget {
             Image.asset(imageUrl),
             Text(title),
             RaisedButton(
-              child: Text('Back'),
-              onPressed: () => Navigator.pop(context,  true),
+              child: Text('DELETE'),
+              onPressed: () => Navigator.pop(context, true),
             )
           ],
         ));
