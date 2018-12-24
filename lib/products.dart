@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './pages/product.dart';
 
 class Products extends StatelessWidget {
-  final List<String> products;
+  final List<Map<String, String>> products;
 
   // get the input and assign to products
   Products(this.products) {
@@ -20,16 +20,18 @@ class Products extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset('assets/dalat.jpg'),
-          Text(products[index]),
+          Text(products[index]['title']),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                child: Text('Details'),
+                child: Text(products[index]['title']),
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => ProductPage())),
+                        builder: (BuildContext context) => ProductPage(
+                            products[index]['title'],
+                            products[index]['imageUrl']))),
               )
             ],
           )

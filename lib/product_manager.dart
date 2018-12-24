@@ -3,7 +3,7 @@ import './products.dart';
 import './product_control.dart';
 
 class ProductManager extends StatefulWidget {
-  final String startingProduct;
+  final Map<String, String> startingProduct;
   final String text;
   ProductManager(
       {this.startingProduct,
@@ -15,7 +15,7 @@ class ProductManager extends StatefulWidget {
 }
 
 class _ProductManagerState extends State<ProductManager> {
-  List<String> _products = [];
+  List<Map<String, String>> _products = [];
   @override
   void initState() {
     super.initState();
@@ -24,7 +24,7 @@ class _ProductManagerState extends State<ProductManager> {
     }
   }
 
-  void _addProduct(String product) {
+  void _addProduct(Map<String, String> product) {
     setState(() {
       _products.add(product);
     });
@@ -36,8 +36,8 @@ class _ProductManagerState extends State<ProductManager> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.all(10.0),
-          child: ProductControl(
-              _addProduct), // just add referenct of _addProduct function. Not (), so that not execute immediately
+          child: ProductControl(_addProduct),
+          // just add referenct of _addProduct function. Not (), so that not execute immediately
         ),
         Expanded(
           child: Products(_products),
