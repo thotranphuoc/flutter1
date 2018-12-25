@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../product_manager.dart';
-import './product_manager.dart';
+import './product_admin.dart';
 
 class ProductsPage extends StatelessWidget {
   @override
@@ -20,8 +20,7 @@ class ProductsPage extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            ProductManagerPage()));
+                        builder: (BuildContext context) => ProductAdminPage()));
               },
             )
           ],
