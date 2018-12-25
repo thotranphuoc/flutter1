@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 import './pages/auth.dart';
+import './pages/product_admin.dart';
 
 // void main() => runApp(MyApp());
 void main() {
@@ -14,11 +16,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowMaterialGrid: false,
-        theme: ThemeData(
-            brightness: Brightness.light,
-            primarySwatch: Colors.deepOrange,
-            accentColor: Colors.deepPurple),
-        home: AuthPage());
+      debugShowMaterialGrid: false,
+      theme: ThemeData(
+          brightness: Brightness.light,
+          primarySwatch: Colors.deepOrange,
+          accentColor: Colors.deepPurple),
+      home: AuthPage(),
+      routes: {
+        '/admin': (BuildContext context) => ProductAdminPage(),
+      },
+    );
   }
 }
