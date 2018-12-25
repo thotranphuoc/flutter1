@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 // import './pages/auth.dart';
 import './pages/product_admin.dart';
 import './pages/products.dart';
+import './pages/product.dart';
 
 // void main() => runApp(MyApp());
 void main() {
@@ -13,7 +14,29 @@ void main() {
   // debugPaintPointersEnabled = true;
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _MyAppState();
+  }
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Map<String, String>> _products = [];
+
+  void _addProduct(Map<String, String> product) {
+    setState(() {
+      _products.add(product);
+    });
+  }
+
+  void _deleteProduct(int index) {
+    setState(() {
+      _products.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,8 +47,25 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.deepPurple),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) => ProductsPage(),
+        '/': (BuildContext context) =>
+            ProductsPage(_products, _addProduct, _deleteProduct),
         '/admin': (BuildContext context) => ProductAdminPage(),
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        final List<String> pathElements = settings.name.split('/');
+        print(pathElements);
+        if (pathElements[0] != '') {
+          return null;
+        }
+
+        if (pathElements[1] == 'product') {
+          final int index = int.parse(pathElements[2]);
+          return MaterialPageRoute<bool>(
+              builder: (BuildContext context) => ProductPage(
+                  _products[index]['title'], _products[index]['imageUrl']));
+        }
+
+        return null;
       },
     );
   }
