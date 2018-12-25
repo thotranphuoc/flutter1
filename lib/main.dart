@@ -5,9 +5,9 @@ import './pages/auth.dart';
 // void main() => runApp(MyApp());
 void main() {
   runApp(MyApp());
-  debugPaintSizeEnabled = true;
-  debugPaintBaselinesEnabled = true;
-  debugPaintPointersEnabled = true;
+  // debugPaintSizeEnabled = true;
+  // debugPaintBaselinesEnabled = true;
+  // debugPaintPointersEnabled = true;
 }
 
 class MyApp extends StatelessWidget {
