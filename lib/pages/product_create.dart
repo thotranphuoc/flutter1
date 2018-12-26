@@ -31,7 +31,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
     return Container(
       margin: EdgeInsets.all(10.0),
-      child: Column(
+      child: ListView(
         children: <Widget>[
           TextField(
             decoration: InputDecoration(labelText: 'Product Title'),
