@@ -80,6 +80,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                 'imageUrl': 'assets/dalat.jpg'
               };
               widget.addProduct(product);
+              Navigator.pushReplacementNamed(context, '/products');
             },
           )
           // Text(textValue)
