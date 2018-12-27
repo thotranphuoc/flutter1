@@ -10,9 +10,9 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String emailValue;
-  String passValue;
-
+  String _emailValue;
+  String _passValue;
+  bool _acceptTerms = false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -26,21 +26,32 @@ class _AuthPageState extends State<AuthPage> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
               onChanged: (String value) {
                 print(value);
                 setState(() {
-                  emailValue = value;
+                  _emailValue = value;
                 });
               },
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Password'),
+              obscureText: true,
               onChanged: (String value) {
                 print(value);
                 setState(() {
-                  passValue = value;
+                  _passValue = value;
                 });
               },
+            ),
+            SwitchListTile(
+              value: _acceptTerms,
+              onChanged: (bool newvalue) {
+                setState(() {
+                  _acceptTerms = newvalue;
+                });
+              },
+              title: Text('Accept terms'),
             ),
             SizedBox(
               height: 10.0,

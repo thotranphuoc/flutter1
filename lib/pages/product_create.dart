@@ -12,9 +12,9 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreatePageState extends State<ProductCreatePage> {
-  String titleValue;
-  String descValue;
-  double priceValue;
+  String _titleValue;
+  String _descValue;
+  double _priceValue;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -41,7 +41,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             onChanged: (String value) {
               print(value);
               setState(() {
-                titleValue = value;
+                _titleValue = value;
               });
             },
           ),
@@ -51,7 +51,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             onChanged: (String value) {
               print(value);
               setState(() {
-                descValue = value;
+                _descValue = value;
               });
             },
           ),
@@ -61,7 +61,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             onChanged: (String value) {
               print(value);
               setState(() {
-                priceValue = double.parse(value);
+                _priceValue = double.parse(value);
               });
             },
           ),
@@ -74,9 +74,9 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             child: Text('Save'),
             onPressed: () {
               final Map<String, dynamic> product = {
-                'title': titleValue,
-                'description': descValue,
-                'price': priceValue,
+                'title': _titleValue,
+                'description': _descValue,
+                'price': _priceValue,
                 'imageUrl': 'assets/dalat.jpg'
               };
               widget.addProduct(product);
