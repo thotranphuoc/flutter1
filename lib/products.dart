@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import './pages/product.dart';
 
 class Products extends StatelessWidget {
-  final List<Map<String, String>> products;
-  final Function deleteProduct;
+  final List<Map<String, dynamic>> products;
+  // final Function deleteProduct;
   // products: required, deleteProduct: optional
-  Products(this.products, {this.deleteProduct}) {
+  Products(
+    this.products,
+    //  {this.deleteProduct}
+  ) {
     print('product.dart constructor()');
   }
 
@@ -25,15 +28,15 @@ class Products extends StatelessWidget {
             alignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton(
-                child: Text(products[index]['title']),
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/product/' + index.toString())
-                        .then((onValue) {
-                      if (onValue) {
-                        deleteProduct(index);
-                      }
-                    }),
-              )
+                  child: Text(products[index]['title']),
+                  onPressed: () => Navigator.pushNamed(
+                      context, '/product/' + index.toString())
+                  //     .then((onValue) {
+                  //   if (onValue) {
+                  //     deleteProduct(index);
+                  //   }
+                  // }),
+                  )
             ],
           )
         ],
