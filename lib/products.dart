@@ -23,12 +23,15 @@ class Products extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Image.asset('assets/dalat.jpg'),
-          Text(
-            products[index]['title'],
-            style: TextStyle(
-                fontSize: 26.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Oswald'),
+          Container(
+            padding: EdgeInsets.only(top: 10.0),
+            child: Text(
+              products[index]['title'],
+              style: TextStyle(
+                  fontSize: 26.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Oswald'),
+            ),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.center,
