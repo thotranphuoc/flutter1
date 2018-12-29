@@ -6,7 +6,6 @@ class ProductCreatePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _ProductCreatePageState();
   }
 }
@@ -17,54 +16,13 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   double _priceValue;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    // return Center(
-    //     child: RaisedButton(
-    //   child: Text('Save'),
-    //   onPressed: () {
-    //     showModalBottomSheet(
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return Center(
-    //             child: Text('This is a modal!'),
-    //           );
-    //         });
-    //   },
-    // ));
-
     return Container(
       margin: EdgeInsets.all(10.0),
       child: ListView(
         children: <Widget>[
-          TextField(
-            decoration: InputDecoration(labelText: 'Product Title'),
-            onChanged: (String value) {
-              print(value);
-              setState(() {
-                _titleValue = value;
-              });
-            },
-          ),
-          TextField(
-            maxLines: 4,
-            decoration: InputDecoration(labelText: 'Product Description'),
-            onChanged: (String value) {
-              print(value);
-              setState(() {
-                _descValue = value;
-              });
-            },
-          ),
-          TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(labelText: 'Product Price'),
-            onChanged: (String value) {
-              print(value);
-              setState(() {
-                _priceValue = double.parse(value);
-              });
-            },
-          ),
+          _buildTitleTextField(),
+          _buildDescriptionTextField(),
+          _buildPriceTextField(),
           SizedBox(
             height: 10.0,
           ),
@@ -72,20 +30,59 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
             color: Theme.of(context).accentColor,
             textColor: Colors.white,
             child: Text('Save'),
-            onPressed: () {
-              final Map<String, dynamic> product = {
-                'title': _titleValue,
-                'description': _descValue,
-                'price': _priceValue,
-                'imageUrl': 'assets/dalat.jpg'
-              };
-              widget.addProduct(product);
-              Navigator.pushReplacementNamed(context, '/products');
-            },
+            onPressed: _submitForm,
           )
-          // Text(textValue)
         ],
       ),
     );
+  }
+
+  Widget _buildTitleTextField() {
+    return TextField(
+      decoration: InputDecoration(labelText: 'Product Title'),
+      onChanged: (String value) {
+        print(value);
+        setState(() {
+          _titleValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildDescriptionTextField() {
+    return TextField(
+      maxLines: 4,
+      decoration: InputDecoration(labelText: 'Product Description'),
+      onChanged: (String value) {
+        print(value);
+        setState(() {
+          _descValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildPriceTextField() {
+    return TextField(
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(labelText: 'Product Price'),
+      onChanged: (String value) {
+        print(value);
+        setState(() {
+          _priceValue = double.parse(value);
+        });
+      },
+    );
+  }
+
+  void _submitForm() {
+    final Map<String, dynamic> product = {
+      'title': _titleValue,
+      'description': _descValue,
+      'price': _priceValue,
+      'imageUrl': 'assets/dalat.jpg'
+    };
+    widget.addProduct(product);
+    Navigator.pushReplacementNamed(context, '/products');
   }
 }
