@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
+import '../widgets/products/price_tag.dart';
 // import '../product_manager.dart';
 
 class ProductPage extends StatelessWidget {
@@ -45,10 +45,7 @@ class ProductPage extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 5.0),
                     child: Text('|'),
                   ),
-                  Text(
-                    '\$' + price.toString(),
-                    style: TextStyle(fontFamily: 'Oswald'),
-                  )
+                  PriceTag(price.toString()),
                 ],
               ),
               // Text(description),
