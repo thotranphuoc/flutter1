@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './pages/product.dart';
-import './widgets/products/price_tag.dart';
+import '../../pages/product.dart';
+import './price_tag.dart';
 
 class Products extends StatelessWidget {
   final List<Map<String, dynamic>> products;
