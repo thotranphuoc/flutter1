@@ -59,8 +59,8 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       decoration: InputDecoration(labelText: 'Product Title'),
       // autovalidate: true,
       validator: (String value) {
-        if (value.isEmpty) {
-          return 'Title is required';
+        if (value.isEmpty || value.trim().length < 5) {
+          return 'Title is required and should be 5+ characters';
         }
       },
       onSaved: (String value) {
@@ -82,6 +82,11 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     return TextFormField(
       maxLines: 4,
       decoration: InputDecoration(labelText: 'Product Description'),
+      validator: (String value) {
+        if (value.isEmpty || value.trim().length < 10) {
+          return 'Description is required and should be 10+ characters';
+        }
+      },
       onSaved: (String value) {
         print('Desc field saved ->' + value);
         setState(() {
@@ -117,7 +122,10 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   }
 
   void _submitForm() {
-    _keyForm.currentState.validate();
+    if (!_keyForm.currentState.validate()) {
+      return;
+    }
+    ;
     _keyForm.currentState.save();
     final Map<String, dynamic> product = {
       'title': _titleValue,
