@@ -61,8 +61,8 @@ class Products extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlatButton(
-                  child: Text(products[index]['title']),
+              IconButton(
+                  icon: Icon(Icons.info),
                   onPressed: () => Navigator.pushNamed(
                       context, '/product/' + index.toString())
                   //     .then((onValue) {
