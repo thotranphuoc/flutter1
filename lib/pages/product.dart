@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 class ProductPage extends StatelessWidget {
   final String title;
   final String imageUrl;
-  ProductPage(this.title, this.imageUrl);
+  final double price;
+  final String description;
+  ProductPage(this.title, this.imageUrl, this.price, this.description);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,44 @@ class ProductPage extends StatelessWidget {
           body: Column(
             children: <Widget>[
               Image.asset(imageUrl),
-              Text(title),
-              RaisedButton(
-                color: Theme.of(context).accentColor,
-                child: Text('DELETE'),
-                onPressed: () => _showWarningDialog(context),
-              )
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(title,
+                    style: TextStyle(
+                        fontSize: 26.0,
+                        fontFamily: 'Oswald',
+                        fontWeight: FontWeight.bold)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Union Square, San Francisco',
+                    style: TextStyle(fontFamily: 'Oswald', color: Colors.grey),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text('|'),
+                  ),
+                  Text(
+                    '\$' + price.toString(),
+                    style: TextStyle(fontFamily: 'Oswald'),
+                  )
+                ],
+              ),
+              // Text(description),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'Chocolate is a usually sweet, brown food preparation of roasted and ground cacao seeds. It is made in the form of a liquid, paste, or in a block, or used as a flavoring ingredient in other foods.',
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              // RaisedButton(
+              //   color: Theme.of(context).accentColor,
+              //   child: Text('DELETE'),
+              //   onPressed: () => _showWarningDialog(context),
+              // )
             ],
           )),
     );
