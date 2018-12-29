@@ -63,6 +63,18 @@ class Products extends StatelessWidget {
             children: <Widget>[
               IconButton(
                   icon: Icon(Icons.info),
+                  color: Theme.of(context).accentColor,
+                  onPressed: () => Navigator.pushNamed(
+                      context, '/product/' + index.toString())
+                  //     .then((onValue) {
+                  //   if (onValue) {
+                  //     deleteProduct(index);
+                  //   }
+                  // }),
+                  ),
+              IconButton(
+                  icon: Icon(Icons.favorite_border),
+                  color: Colors.red,
                   onPressed: () => Navigator.pushNamed(
                       context, '/product/' + index.toString())
                   //     .then((onValue) {
