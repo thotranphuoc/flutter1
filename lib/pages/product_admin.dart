@@ -14,23 +14,7 @@ class ProductAdminPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              AppBar(
-                automaticallyImplyLeading: false,
-                title: Text('Choose'),
-              ),
-              ListTile(
-                leading: Icon(Icons.shop),
-                title: Text('All Products'),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/products');
-                },
-              )
-            ],
-          ),
-        ),
+        drawer: _buildSideDrawer(context),
         appBar: AppBar(
             title: Text('Product Admin'),
             bottom: TabBar(
@@ -39,21 +23,35 @@ class ProductAdminPage extends StatelessWidget {
                   icon: Icon(Icons.create),
                   text: 'Create Product',
                 ),
-                Tab(icon: Icon(Icons.list), text: 'My Products')
+                Tab(
+                  icon: Icon(Icons.list),
+                  text: 'My Products',
+                )
               ],
             )),
         body: TabBarView(
           children: <Widget>[ProductCreatePage(addProduct), ProductListPage()],
         ),
-        // body: Center(
-        //     child: RaisedButton(
-        //         child: Text('Some product here'),
-        //         onPressed: () {
-        //           Navigator.pushReplacement(
-        //               context,
-        //               MaterialPageRoute(
-        //                   builder: (BuildContext context) => ProductsPage()));
-        //         }))
+      ),
+    );
+  }
+
+  Widget _buildSideDrawer(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          AppBar(
+            automaticallyImplyLeading: false,
+            title: Text('Choose'),
+          ),
+          ListTile(
+            leading: Icon(Icons.shop),
+            title: Text('All Products'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/products');
+            },
+          )
+        ],
       ),
     );
   }

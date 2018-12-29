@@ -4,7 +4,6 @@ import './products.dart';
 class AuthPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _AuthPageState();
   }
 }
@@ -15,57 +14,23 @@ class _AuthPageState extends State<AuthPage> {
   bool _acceptTerms = false;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
       ),
       body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
-                image: AssetImage('assets/background.jpg'))),
+        decoration: _buildBackgroundImage(),
         padding: EdgeInsets.all(10.0),
         child: Center(
             child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              TextField(
-                decoration: InputDecoration(
-                    labelText: 'Email', filled: true, fillColor: Colors.white),
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (String value) {
-                  print(value);
-                  setState(() {
-                    _emailValue = value;
-                  });
-                },
+              _buildEmailTextField(),
+              SizedBox(
+                height: 10.0,
               ),
-              SizedBox(height: 10.0,),
-              TextField(
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    filled: true,
-                    fillColor: Colors.white),
-                obscureText: true,
-                onChanged: (String value) {
-                  print(value);
-                  setState(() {
-                    _passValue = value;
-                  });
-                },
-              ),
-              SwitchListTile(
-                value: _acceptTerms,
-                onChanged: (bool newvalue) {
-                  setState(() {
-                    _acceptTerms = newvalue;
-                  });
-                },
-                title: Text('Accept terms'),
-              ),
+              _buildPasswordTextField(),
+              _buildAcceptTermSwitchList(),
               SizedBox(
                 height: 10.0,
               ),
@@ -73,9 +38,7 @@ class _AuthPageState extends State<AuthPage> {
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 child: Text('Login'),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/products');
-                },
+                onPressed: _submitForm,
               )
             ],
           ),
@@ -88,5 +51,58 @@ class _AuthPageState extends State<AuthPage> {
       //           Navigator.pushReplacementNamed(context, '/');
       //         }))
     );
+  }
+
+  BoxDecoration _buildBackgroundImage() {
+    return BoxDecoration(
+        image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5), BlendMode.dstATop),
+            image: AssetImage('assets/background.jpg')));
+  }
+
+  Widget _buildEmailTextField() {
+    return TextField(
+      decoration: InputDecoration(
+          labelText: 'Email', filled: true, fillColor: Colors.white),
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (String value) {
+        print(value);
+        setState(() {
+          _emailValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildPasswordTextField() {
+    return TextField(
+      decoration: InputDecoration(
+          labelText: 'Password', filled: true, fillColor: Colors.white),
+      obscureText: true,
+      onChanged: (String value) {
+        print(value);
+        setState(() {
+          _passValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildAcceptTermSwitchList() {
+    return SwitchListTile(
+      value: _acceptTerms,
+      onChanged: (bool newvalue) {
+        setState(() {
+          _acceptTerms = newvalue;
+        });
+      },
+      title: Text('Accept terms'),
+    );
+  }
+
+  void _submitForm() {
+    Navigator.pushReplacementNamed(context, '/products');
   }
 }
