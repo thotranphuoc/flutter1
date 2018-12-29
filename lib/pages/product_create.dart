@@ -38,17 +38,17 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
                 child: Text('Save'),
                 onPressed: _submitForm,
               ),
-              GestureDetector(
-                onTap: _submitForm,
-                child: Container(
-                  color: Colors.green,
-                  padding: EdgeInsets.all(5.0),
-                  child: Text(
-                    'my custom button',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
+              // GestureDetector(
+              //   onTap: _submitForm,
+              //   child: Container(
+              //     color: Colors.green,
+              //     padding: EdgeInsets.all(5.0),
+              //     child: Text(
+              //       'my custom button',
+              //       textAlign: TextAlign.center,
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ));
@@ -57,6 +57,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   Widget _buildTitleTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Title'),
+      autovalidate: true,
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Title is required';
+        }
+      },
       onSaved: (String value) {
         print('Title field saved ->' + value);
         setState(() {
