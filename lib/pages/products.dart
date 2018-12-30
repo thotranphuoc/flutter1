@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../widgets/products/products.dart';
 import './product_admin.dart';
+import '../models/product.model.dart';
 
 class ProductsPage extends StatelessWidget {
-  final List<Map<String, dynamic>> products;
+  final List<iProduct> products;
 
   // should be received from outside
   ProductsPage(this.products);
