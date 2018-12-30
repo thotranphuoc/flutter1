@@ -4,15 +4,28 @@ import './product_edit.dart';
 class ProductListPage extends StatelessWidget {
   final List<Map<String, dynamic>> products;
   final Function updateProduct;
-  ProductListPage(this.products, this.updateProduct);
+  final Function deleteProduct;
+  ProductListPage(this.products, this.updateProduct, this.deleteProduct);
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
           key: Key(products[index]['title']),
+          onDismissed: (DismissDirection direction) {
+            if (direction == DismissDirection.endToStart) {
+              deleteProduct(index);
+            } else if (direction == DismissDirection.startToEnd) {
+              print('Swipe start to end');
+            } else {
+              print('Other swiping');
+            }
+          },
           background: Container(
             color: Colors.red,
+          ),
+          secondaryBackground: Container(
+            color: Colors.yellow,
           ),
           child: Column(
             children: <Widget>[

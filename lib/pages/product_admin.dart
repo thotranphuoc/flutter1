@@ -13,7 +13,6 @@ class ProductAdminPage extends StatelessWidget {
       this.addProduct, this.updateProduct, this.deleteProduct, this.products);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -35,7 +34,7 @@ class ProductAdminPage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             ProductEditPage(addProduct: addProduct),
-            ProductListPage(products, updateProduct)
+            ProductListPage(products, updateProduct, deleteProduct)
           ],
         ),
       ),
