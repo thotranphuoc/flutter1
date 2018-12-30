@@ -4,7 +4,9 @@ class ProductEditPage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
   final Map<String, dynamic> product;
-  ProductEditPage({this.addProduct, this.product, this.updateProduct});
+  final int productIndex;
+  ProductEditPage(
+      {this.addProduct, this.product, this.updateProduct, this.productIndex});
 
   @override
   State<StatefulWidget> createState() {
@@ -147,9 +149,14 @@ class _ProductEditPageState extends State<ProductEditPage> {
     if (!_keyForm.currentState.validate()) {
       return;
     }
-    ;
+
     _keyForm.currentState.save();
-    widget.addProduct(_formData);
-    Navigator.pushReplacementNamed(context, '/products');
+    if (widget.product == null) {
+      widget.addProduct(_formData);
+      Navigator.pushReplacementNamed(context, '/products');
+    } else {
+      widget.updateProduct(widget.productIndex, _formData);
+      Navigator.pop(context);
+    }
   }
 }
