@@ -14,6 +14,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
   String _titleValue;
   String _descValue;
   double _priceValue;
+  final Map<String, dynamic> _formData = {
+    'title': null,
+    'description': null,
+    'price': null,
+    'imageUrl': 'assets/dalat.jpg'
+  };
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -70,9 +76,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       },
       onSaved: (String value) {
         print('Title field saved ->' + value);
-        setState(() {
-          _titleValue = value;
-        });
+        _formData['title'] = value;
       },
       // onChanged: (String value) {
       //   print(value);
@@ -94,9 +98,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       },
       onSaved: (String value) {
         print('Desc field saved ->' + value);
-        setState(() {
-          _descValue = value;
-        });
+        _formData['description'] = value;
       },
       // onChanged: (String value) {
       //   print(value);
@@ -119,9 +121,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
       },
       onSaved: (String value) {
         print('Price field saved ->' + value);
-        setState(() {
-          _priceValue = double.parse(value);
-        });
+        _formData['price'] = double.parse(value);
       },
       // onChanged: (String value) {
       //   print(value);
@@ -138,13 +138,7 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     }
     ;
     _keyForm.currentState.save();
-    final Map<String, dynamic> product = {
-      'title': _titleValue,
-      'description': _descValue,
-      'price': _priceValue,
-      'imageUrl': 'assets/dalat.jpg'
-    };
-    widget.addProduct(product);
+    widget.addProduct(_formData);
     Navigator.pushReplacementNamed(context, '/products');
   }
 }
