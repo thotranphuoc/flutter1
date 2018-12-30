@@ -106,6 +106,12 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
     return TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Product Price'),
+      validator: (String value) {
+        if (value.isEmpty ||
+            !RegExp(r'^(?:[1-9]\d*|0)?(?:[.,]\d+)?$').hasMatch(value)) {
+          return 'Price is required and should be a number';
+        }
+      },
       onSaved: (String value) {
         print('Price field saved ->' + value);
         setState(() {
