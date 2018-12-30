@@ -6,9 +6,9 @@ import './product_list.dart';
 import '../models/product.model.dart';
 
 class ProductAdminPage extends StatelessWidget {
-  final Function addProduct;
-  final Function updateProduct;
-  final Function deleteProduct;
+  final Function(iProduct) addProduct;
+  final Function(int, iProduct) updateProduct;
+  final Function(int) deleteProduct;
   final List<iProduct> products;
   ProductAdminPage(
       this.addProduct, this.updateProduct, this.deleteProduct, this.products);
