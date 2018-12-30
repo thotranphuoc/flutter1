@@ -12,6 +12,7 @@ class ProductListPage extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Dismissible(
           key: Key(products[index]['title']),
+          direction: DismissDirection.endToStart,
           onDismissed: (DismissDirection direction) {
             if (direction == DismissDirection.endToStart) {
               deleteProduct(index);
@@ -24,9 +25,9 @@ class ProductListPage extends StatelessWidget {
           background: Container(
             color: Colors.red,
           ),
-          secondaryBackground: Container(
-            color: Colors.yellow,
-          ),
+          // secondaryBackground: Container(
+          //   color: Colors.yellow,
+          // ),
           child: Column(
             children: <Widget>[
               ListTile(
