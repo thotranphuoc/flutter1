@@ -15,6 +15,7 @@ class ProductListPage extends StatelessWidget {
               backgroundImage: AssetImage(products[index]['imageUrl']),
             ),
             title: Text(products[index]['title']),
+            subtitle: Text('\$${products[index]['price']}'),
             trailing: IconButton(
               onPressed: () {
                 Navigator.of(context)
