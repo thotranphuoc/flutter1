@@ -6,12 +6,12 @@ import './product_list.dart';
 import '../models/product.model.dart';
 
 class ProductAdminPage extends StatelessWidget {
-  final Function(iProduct) addProduct;
-  final Function(int, iProduct) updateProduct;
-  final Function(int) deleteProduct;
-  final List<iProduct> products;
-  ProductAdminPage(
-      this.addProduct, this.updateProduct, this.deleteProduct, this.products);
+  // final Function(iProduct) addProduct;
+  // final Function(int, iProduct) updateProduct;
+  // final Function(int) deleteProduct;
+  // final List<iProduct> products;
+  // ProductAdminPage(
+  //     this.addProduct, this.updateProduct, this.deleteProduct, this.products);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -34,8 +34,8 @@ class ProductAdminPage extends StatelessWidget {
             )),
         body: TabBarView(
           children: <Widget>[
-            ProductEditPage(addProduct: addProduct),
-            ProductListPage(products, updateProduct, deleteProduct)
+            ProductEditPage(),
+            ProductListPage(null, null, null)
           ],
         ),
       ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/product.model.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+import '../scoped-models/product.scope.dart';
+
 class ProductEditPage extends StatefulWidget {
   final Function addProduct;
   final Function updateProduct;
@@ -57,16 +60,29 @@ class _ProductEditPageState extends State<ProductEditPage> {
                 SizedBox(
                   height: 10.0,
                 ),
-                RaisedButton(
-                  textColor: Colors.white,
-                  child: Text('Save'),
-                  onPressed: _submitForm,
-                ),
+                _buildSubmitButton(),
               ],
             ),
           )),
     );
   }
+
+  Widget _buildSubmitButton() {
+    return ScopedModelDescendant<ProductScopedModel>(
+      builder: (BuildContext context, Widget child, ProductScopedModel model) {
+        // _products = model.products;
+        return RaisedButton(
+          textColor: Colors.white,
+          child: Text('Save'),
+          onPressed: () => _submitForm(model.addProduct, model.updateProduct),
+        );
+      },
+    );
+  }
+
+  // ScopedModelDescendant _buildScope() {
+
+  // }
 
   Widget _buildTitleTextField() {
     return TextFormField(
@@ -120,20 +136,25 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm(Function addProduct, Function updateProduct) {
     if (!_keyForm.currentState.validate()) {
       return;
     }
     _keyForm.currentState.save();
     if (widget.product == null) {
-      widget.addProduct(iProduct(
+      addProduct(iProduct(
           title: _formData['title'],
           description: _formData['description'],
           price: _formData['price'],
           imageUrl: _formData['imageUrl']));
+      // widget.addProduct(iProduct(
+      //     title: _formData['title'],
+      //     description: _formData['description'],
+      //     price: _formData['price'],
+      //     imageUrl: _formData['imageUrl']));
       Navigator.pushReplacementNamed(context, '/products');
     } else {
-      widget.updateProduct(
+      updateProduct(
           widget.productIndex,
           iProduct(
               title: _formData['title'],

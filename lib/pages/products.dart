@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import '../widgets/products/products.dart';
-import './product_admin.dart';
-import '../models/product.model.dart';
+// import './product_admin.dart';
+// import '../models/product.model.dart';
 
 class ProductsPage extends StatelessWidget {
-  final List<iProduct> products;
+  // final List<iProduct> products;
 
-  // should be received from outside
-  ProductsPage(this.products);
+  // // should be received from outside
+  // ProductsPage(this.products);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       drawer: _buildSideDrawer(context),
       appBar: AppBar(
@@ -23,7 +22,7 @@ class ProductsPage extends StatelessWidget {
           )
         ],
       ),
-      body: Products(products),
+      body: Products(),
     );
   }
 
