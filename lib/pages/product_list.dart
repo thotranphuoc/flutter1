@@ -31,25 +31,12 @@ class ProductListPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               ListTile(
-                // leading: Image.asset(products[index]['imageUrl']),
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(products[index]['imageUrl']),
                 ),
                 title: Text(products[index]['title']),
                 subtitle: Text('\$${products[index]['price']}'),
-                trailing: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return ProductEditPage(
-                        product: products[index],
-                        updateProduct: updateProduct,
-                        productIndex: index,
-                      );
-                    }));
-                  },
-                  icon: Icon(Icons.edit),
-                ),
+                trailing: _buildEditButton(context, index),
               ),
               Divider()
             ],
@@ -57,6 +44,22 @@ class ProductListPage extends StatelessWidget {
         );
       },
       itemCount: products.length,
+    );
+  }
+
+  Widget _buildEditButton(BuildContext context, int index) {
+    return IconButton(
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return ProductEditPage(
+            product: products[index],
+            updateProduct: updateProduct,
+            productIndex: index,
+          );
+        }));
+      },
+      icon: Icon(Icons.edit),
     );
   }
 }

@@ -24,10 +24,22 @@ class _ProductEditPageState extends State<ProductEditPage> {
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final Widget pageContent = _buildPageContent();
+    return widget.product == null
+        ? pageContent
+        : Scaffold(
+            appBar: AppBar(
+              title: Text('Edit Product'),
+            ),
+            body: pageContent,
+          );
+  }
+
+  Widget _buildPageContent() {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500 : deviceWidth * 0.95;
     final double targetPadding = deviceWidth - targetWidth;
-    final Widget pageContent = GestureDetector(
+    return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
@@ -49,35 +61,15 @@ class _ProductEditPageState extends State<ProductEditPage> {
                   child: Text('Save'),
                   onPressed: _submitForm,
                 ),
-                // GestureDetector(
-                //   onTap: _submitForm,
-                //   child: Container(
-                //     color: Colors.green,
-                //     padding: EdgeInsets.all(5.0),
-                //     child: Text(
-                //       'my custom button',
-                //       textAlign: TextAlign.center,
-                //     ),
-                //   ),
-                // )
               ],
             ),
           )),
     );
-    return widget.product == null
-        ? pageContent
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Edit Product'),
-            ),
-            body: pageContent,
-          );
   }
 
   Widget _buildTitleTextField() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Title'),
-      // autovalidate: true,
       initialValue: widget.product == null ? '' : widget.product['title'],
       validator: (String value) {
         if (value.isEmpty || value.trim().length < 5) {
@@ -88,12 +80,6 @@ class _ProductEditPageState extends State<ProductEditPage> {
         print('Title field saved ->' + value);
         _formData['title'] = value;
       },
-      // onChanged: (String value) {
-      //   print(value);
-      //   setState(() {
-      //     _titleValue = value;
-      //   });
-      // },
     );
   }
 
@@ -111,12 +97,6 @@ class _ProductEditPageState extends State<ProductEditPage> {
         print('Desc field saved ->' + value);
         _formData['description'] = value;
       },
-      // onChanged: (String value) {
-      //   print(value);
-      //   setState(() {
-      //     _descValue = value;
-      //   });
-      // },
     );
   }
 
@@ -136,12 +116,6 @@ class _ProductEditPageState extends State<ProductEditPage> {
         print('Price field saved ->' + value);
         _formData['price'] = double.parse(value);
       },
-      // onChanged: (String value) {
-      //   print(value);
-      //   setState(() {
-      //     _priceValue = double.parse(value);
-      //   });
-      // },
     );
   }
 
@@ -149,7 +123,6 @@ class _ProductEditPageState extends State<ProductEditPage> {
     if (!_keyForm.currentState.validate()) {
       return;
     }
-
     _keyForm.currentState.save();
     if (widget.product == null) {
       widget.addProduct(_formData);
