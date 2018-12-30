@@ -9,9 +9,13 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  String _emailValue;
-  String _passValue;
-  bool _acceptTerms = false;
+  final Map<String, dynamic> _formData = {
+    'email': null,
+    'password': null,
+    'termAccepted': false
+  };
+  final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -27,33 +31,30 @@ class _AuthPageState extends State<AuthPage> {
             child: SingleChildScrollView(
           child: Container(
             width: targetWidth,
-            child: Column(
-              children: <Widget>[
-                _buildEmailTextField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                _buildPasswordTextField(),
-                _buildAcceptTermSwitchList(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                RaisedButton(
-                  textColor: Colors.white,
-                  child: Text('Login'),
-                  onPressed: _submitForm,
-                ),
-              ],
+            child: Form(
+              key: _keyForm,
+              child: Column(
+                children: <Widget>[
+                  _buildEmailTextField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  _buildPasswordTextField(),
+                  _buildAcceptTermSwitchList(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RaisedButton(
+                    textColor: Colors.white,
+                    child: Text('Login'),
+                    onPressed: _submitForm,
+                  ),
+                ],
+              ),
             ),
           ),
         )),
       ),
-      // body: Center(
-      //     child: RaisedButton(
-      //         child: Text('LOGIN'),
-      //         onPressed: () {
-      //           Navigator.pushReplacementNamed(context, '/');
-      //         }))
     );
   }
 
@@ -67,39 +68,45 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildEmailTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
           labelText: 'Email', filled: true, fillColor: Colors.white),
-      keyboardType: TextInputType.emailAddress,
-      onChanged: (String value) {
-        print(value);
-        setState(() {
-          _emailValue = value;
-        });
+      validator: (String value) {
+        if (value.isEmpty ||
+            !RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                .hasMatch(value)) {
+          return 'Please enter a vilid email';
+        }
       },
+      onSaved: (String value) {
+        _formData['email'] = value;
+      },
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
   Widget _buildPasswordTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
           labelText: 'Password', filled: true, fillColor: Colors.white),
-      obscureText: true,
-      onChanged: (String value) {
-        print(value);
-        setState(() {
-          _passValue = value;
-        });
+      validator: (String value) {
+        if (value.isEmpty || value.trim().length < 6) {
+          return 'Password is required and should be 6+ long';
+        }
       },
+      onSaved: (String value) {
+        _formData['password'] = value;
+      },
+      obscureText: true,
     );
   }
 
   Widget _buildAcceptTermSwitchList() {
     return SwitchListTile(
-      value: _acceptTerms,
+      value: _formData['termAccepted'],
       onChanged: (bool newvalue) {
         setState(() {
-          _acceptTerms = newvalue;
+          _formData['termAccepted'] = newvalue;
         });
       },
       title: Text('Accept terms'),
@@ -107,6 +114,11 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void _submitForm() {
+    if (!_keyForm.currentState.validate() || !_formData['termAccepted']) {
+      return;
+    }
+    _keyForm.currentState.save();
+    print(_formData);
     Navigator.pushReplacementNamed(context, '/products');
   }
 }

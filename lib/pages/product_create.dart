@@ -11,9 +11,6 @@ class ProductCreatePage extends StatefulWidget {
 }
 
 class _ProductCreatePageState extends State<ProductCreatePage> {
-  String _titleValue;
-  String _descValue;
-  double _priceValue;
   final Map<String, dynamic> _formData = {
     'title': null,
     'description': null,
