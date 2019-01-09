@@ -3,33 +3,39 @@ import 'package:flutter/material.dart';
 import '../widgets/products/price_tag.dart';
 import '../widgets/ui_elements/title_default.dart';
 
+import 'package:scoped_model/scoped_model.dart';
+import '../scoped-models/product.scope.dart';
+import '../models/product.model.dart';
+
 class ProductPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final double price;
-  final String description;
-  ProductPage(this.title, this.imageUrl, this.price, this.description);
+  // final String title;
+  // final String imageUrl;
+  // final double price;
+  // final String description;
+  final int productIndex;
+  ProductPage(this.productIndex);
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        print('Back button pressed');
-        Navigator.pop(context, false);
-        return Future.value(false);
-      },
-      child: Scaffold(
+    return WillPopScope(onWillPop: () {
+      print('Back button pressed');
+      Navigator.pop(context, false);
+      return Future.value(false);
+    }, child: ScopedModelDescendant<ProductScopedModel>(
+      builder: (BuildContext context, Widget get, ProductScopedModel model) {
+        final iProduct product = model.products[productIndex];
+        return Scaffold(
           appBar: AppBar(
             title: Text('Details'),
           ),
           body: Column(
             children: <Widget>[
-              Image.asset(imageUrl),
+              Image.asset(product.imageUrl),
               Container(
                 padding: EdgeInsets.all(10.0),
-                child: TitleDefault(title),
+                child: TitleDefault(product.title),
               ),
-              _buildAdressPriceRow(),
+              _buildAdressPriceRow(product.price),
               _buildDescription(),
               // RaisedButton(
               //   color: Theme.of(context).accentColor,
@@ -37,8 +43,10 @@ class ProductPage extends StatelessWidget {
               //   onPressed: () => _showWarningDialog(context),
               // )
             ],
-          )),
-    );
+          ),
+        );
+      },
+    ));
   }
 
   _showWarningDialog(BuildContext context) {
@@ -64,7 +72,7 @@ class ProductPage extends StatelessWidget {
         });
   }
 
-  Widget _buildAdressPriceRow() {
+  Widget _buildAdressPriceRow(double price) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[

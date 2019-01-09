@@ -4,6 +4,7 @@ import '../models/product.model.dart';
 class ProductScopedModel extends Model {
   List<iProduct> _products = [];
 
+  // thanks to get keywork, products canbe accessed from outside
   List<iProduct> get products {
     return List.from(_products);
   }
@@ -20,3 +21,7 @@ class ProductScopedModel extends Model {
     _products[index] = product;
   }
 }
+
+// contain all methods (functions) related to product which
+// will be called outside
+//
