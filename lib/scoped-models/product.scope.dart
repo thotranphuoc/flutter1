@@ -3,22 +3,40 @@ import '../models/product.model.dart';
 
 class ProductScopedModel extends Model {
   List<iProduct> _products = [];
-
-  // thanks to get keywork, products canbe accessed from outside
+  int _selectProductIndex;
+  // thanks to get keywork, products canbe accessed from outside by dot notation
   List<iProduct> get products {
     return List.from(_products);
   }
 
+  int get selectedProductIndex {
+    return _selectProductIndex;
+  }
+
+  iProduct get selectedProduct {
+    if (_selectProductIndex == null) {
+      return null;
+    }
+    return products[selectedProductIndex];
+  }
+
   void addProduct(iProduct product) {
     _products.add(product);
+    _selectProductIndex = null;
   }
 
-  void deleteProduct(int index) {
-    _products.removeAt(index);
+  void deleteProduct() {
+    _products.removeAt(_selectProductIndex);
+    _selectProductIndex = null;
   }
 
-  void updateProduct(int index, iProduct product) {
-    _products[index] = product;
+  void updateProduct(iProduct product) {
+    _products[_selectProductIndex] = product;
+    _selectProductIndex = null;
+  }
+
+  void selectProduct(int index) {
+    _selectProductIndex = index;
   }
 }
 

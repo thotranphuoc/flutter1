@@ -5,13 +5,6 @@ import 'package:scoped_model/scoped_model.dart';
 import '../scoped-models/product.scope.dart';
 
 class ProductEditPage extends StatefulWidget {
-  final Function addProduct;
-  final Function updateProduct;
-  final iProduct product;
-  final int productIndex;
-  ProductEditPage(
-      {this.addProduct, this.product, this.updateProduct, this.productIndex});
-
   @override
   State<StatefulWidget> createState() {
     return _ProductEditPageState();
@@ -28,18 +21,23 @@ class _ProductEditPageState extends State<ProductEditPage> {
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final Widget pageContent = _buildPageContent();
-    return widget.product == null
-        ? pageContent
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Edit Product'),
-            ),
-            body: pageContent,
-          );
+    return ScopedModelDescendant<ProductScopedModel>(
+      builder: (BuildContext context, Widget child, ProductScopedModel model) {
+        final Widget pageContent =
+            _buildPageContent(context, model.selectedProduct);
+        return model.selectedProductIndex == null
+            ? pageContent
+            : Scaffold(
+                appBar: AppBar(
+                  title: Text('Edit Product'),
+                ),
+                body: pageContent,
+              );
+      },
+    );
   }
 
-  Widget _buildPageContent() {
+  Widget _buildPageContent(BuildContext context, iProduct product) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     final double targetWidth = deviceWidth > 550.0 ? 500 : deviceWidth * 0.95;
     final double targetPadding = deviceWidth - targetWidth;
@@ -54,9 +52,9 @@ class _ProductEditPageState extends State<ProductEditPage> {
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: targetPadding / 2),
               children: <Widget>[
-                _buildTitleTextField(),
-                _buildDescriptionTextField(),
-                _buildPriceTextField(),
+                _buildTitleTextField(product),
+                _buildDescriptionTextField(product),
+                _buildPriceTextField(product),
                 SizedBox(
                   height: 10.0,
                 ),
@@ -74,20 +72,16 @@ class _ProductEditPageState extends State<ProductEditPage> {
         return RaisedButton(
           textColor: Colors.white,
           child: Text('Save'),
-          onPressed: () => _submitForm(model.addProduct, model.updateProduct),
+          onPressed: () => _submitForm(model),
         );
       },
     );
   }
 
-  // ScopedModelDescendant _buildScope() {
-
-  // }
-
-  Widget _buildTitleTextField() {
+  Widget _buildTitleTextField(iProduct product) {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Product Title'),
-      initialValue: widget.product == null ? '' : widget.product.title,
+      initialValue: product == null ? '' : product.title,
       validator: (String value) {
         if (value.isEmpty || value.trim().length < 5) {
           return 'Title is required and should be 5+ characters';
@@ -100,11 +94,11 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  Widget _buildDescriptionTextField() {
+  Widget _buildDescriptionTextField(iProduct product) {
     return TextFormField(
       maxLines: 4,
       decoration: InputDecoration(labelText: 'Product Description'),
-      initialValue: widget.product == null ? '' : widget.product.description,
+      initialValue: product == null ? '' : product.description,
       validator: (String value) {
         if (value.isEmpty || value.trim().length < 10) {
           return 'Description is required and should be 10+ characters';
@@ -117,12 +111,11 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  Widget _buildPriceTextField() {
+  Widget _buildPriceTextField(iProduct product) {
     return TextFormField(
       keyboardType: TextInputType.number,
       decoration: InputDecoration(labelText: 'Product Price'),
-      initialValue:
-          widget.product == null ? '' : widget.product.price.toString(),
+      initialValue: product == null ? '' : product.price.toString(),
       validator: (String value) {
         if (value.isEmpty ||
             !RegExp(r'^(?:[1-9]\d*|0)?(?:[.,]\d+)?$').hasMatch(value)) {
@@ -136,31 +129,24 @@ class _ProductEditPageState extends State<ProductEditPage> {
     );
   }
 
-  void _submitForm(Function addProduct, Function updateProduct) {
+  void _submitForm(ProductScopedModel model) {
     if (!_keyForm.currentState.validate()) {
       return;
     }
     _keyForm.currentState.save();
-    if (widget.product == null) {
-      addProduct(iProduct(
+    if (model.selectedProductIndex == null) {
+      model.addProduct(iProduct(
           title: _formData['title'],
           description: _formData['description'],
           price: _formData['price'],
           imageUrl: _formData['imageUrl']));
-      // widget.addProduct(iProduct(
-      //     title: _formData['title'],
-      //     description: _formData['description'],
-      //     price: _formData['price'],
-      //     imageUrl: _formData['imageUrl']));
       Navigator.pushReplacementNamed(context, '/products');
     } else {
-      updateProduct(
-          widget.productIndex,
-          iProduct(
-              title: _formData['title'],
-              description: _formData['description'],
-              price: _formData['price'],
-              imageUrl: _formData['imageUrl']));
+      model.updateProduct(iProduct(
+          title: _formData['title'],
+          description: _formData['description'],
+          price: _formData['price'],
+          imageUrl: _formData['imageUrl']));
       Navigator.pop(context);
     }
   }
